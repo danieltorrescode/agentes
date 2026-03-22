@@ -18,3 +18,14 @@ curl -fsSL https://claude.ai/install.sh | bash
 curl -fsSL https://openclaw.ai/install.sh | bash
 
 ```
+
+- OpenClaw
+```
+vim ~/.openclaw/openclaw.json
+set gateway.bin= "lan"
+
+openclaw devices list
+openclaw devices approve <REQUEST_ID>
+openclaw gateway restart
+openclaw dashboard --no-open
+```

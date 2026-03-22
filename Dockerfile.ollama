@@ -54,10 +54,6 @@ RUN apt-get update && \
 RUN mkdir /home/ollama
 WORKDIR /home/ollama
 
-# ── Agents install ──────────────────────────────────────────────────────────
-# RUN curl -fsSL https://claude.ai/install.sh | bash
-# RUN curl -fsSL https://openclaw.ai/install.sh | bash
-
 ENV PATH="${HOME}/.local/bin:${PATH}"
 RUN echo $PATH
 

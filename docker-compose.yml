@@ -12,6 +12,7 @@ services:
       - ${USER_PATH}/ollama/home:/home/ollama
     ports:
       - "11434:11434"
+      - "18789:18789"
     stdin_open: true
     tty: true
     networks:

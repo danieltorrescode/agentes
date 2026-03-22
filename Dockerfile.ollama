@@ -1,0 +1,66 @@
+FROM ollama/ollama:rocm
+
+# create and set working directory
+RUN mkdir /app
+WORKDIR /app
+
+# add current directory code to working directory
+ADD .docker /app
+
+# set default environment variables
+# ENV LANG C.UTF-8
+
+# ── System packages ──────────────────────────────────────────────────────────
+RUN apt-get update && \
+    apt-get install -y \
+        # editors & terminal utils
+        vim \
+        git \
+        tmux \
+        curl \
+        wget \
+        # build toolchain (gcc, g++, make, pkg-config, etc.)
+        build-essential \
+        # autotools & cmake
+        autoconf \
+        automake \
+        cmake \
+        # library dev headers commonly needed at compile time
+        libssl-dev \
+        zlib1g-dev \
+        libbz2-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        libffi-dev \
+        liblzma-dev \
+        libncurses5-dev \
+        libncursesw5-dev \
+        # extra utilities
+        unzip \
+        file \
+        ca-certificates \
+        gnupg \
+        lsb-release \
+    && rm -rf /var/lib/apt/lists/*
+
+# ────────────────────────────────────────────────────────────
+
+# ARG USER
+# ARG USER_ID
+# ARG GROUP_ID
+# RUN addgroup --gid $GROUP_ID $USER
+# RUN useradd -s /bin/bash --uid $USER_ID --gid $GROUP_ID $USER
+# USER $USER
+RUN mkdir /home/ollama
+WORKDIR /home/ollama
+
+# ── Agents install ──────────────────────────────────────────────────────────
+# RUN curl -fsSL https://claude.ai/install.sh | bash
+# RUN curl -fsSL https://openclaw.ai/install.sh | bash
+
+ENV PATH="${HOME}/.local/bin:${PATH}"
+RUN echo $PATH
+
+# ────────────────────────────────────────────────────────────
+# run entrypoint.sh
+#ENTRYPOINT ["sh", "/app/.docker/entrypoint.sh"]

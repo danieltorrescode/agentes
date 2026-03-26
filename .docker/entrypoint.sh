@@ -4,5 +4,6 @@ echo 'entrypoint.sh';
 # ── Agents install ──────────────────────────────────────────────────────────
 curl -fsSL https://claude.ai/install.sh | bash
 curl -fsSL https://openclaw.ai/install.sh | bash
+curl -fsSL https://opencode.ai/install | bash
 
 exec "$@"

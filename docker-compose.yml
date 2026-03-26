@@ -1,5 +1,5 @@
 services:
-  # ollama_cpu:
+  # ollama:
   #   container_name: ollama_cpu
   #   build:
   #     context: .
@@ -14,7 +14,7 @@ services:
   #   tty: true
   #   networks:
   #     - agents
-  ollama_amd:
+  ollama:
     container_name: ollama_amd
     build:
       context: .
@@ -23,8 +23,8 @@ services:
       - /dev/kfd:/dev/kfd
       - /dev/dri:/dev/dri
     volumes:
-      - ${USER_PATH}/${OLLAMA_PATH}/models:/root/.ollama
-      - ${USER_PATH}/${OLLAMA_PATH}/home:/home/ollama
+      - ${USER_PATH}/${AGENT_PATH}/models:/root/.ollama
+      - ${USER_PATH}/${AGENT_PATH}/ollama:/home/ollama
     ports:
       - "11434:11434"
       - "18789:18789"
@@ -32,13 +32,32 @@ services:
     tty: true
     networks:
       - agents
+  # agent:
+  #   container_name: agent
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.agent
+  #   environment:
+  #       # LA CLAVE: Aquí le dices al agente dónde está Ollama
+  #       - OLLAMA_BASE_URL=http://ollama:11434
+  #   volumes:
+  #     - ${USER_PATH}/${AGENT_PATH}/agent:/home/agent
+  #   ports:
+  #     - "80:80"
+  #     - "18790:18789"
+  #   depends_on:
+  #       - ollama
+  #   stdin_open: true
+  #   tty: true
+  #   networks:
+  #     - agents
   open-webui:
     container_name: open-webui
     image: ghcr.io/open-webui/open-webui:main
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ${USER_PATH}/${OLLAMA_PATH}/open-webui:/app/backend/data
+      - ${USER_PATH}/${AGENT_PATH}/open-webui:/app/backend/data
     ports:
       - "3000:8080"
     restart: always

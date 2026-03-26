@@ -1,0 +1,39 @@
+FROM archlinux:latest
+
+RUN mkdir /app
+WORKDIR /app
+
+ADD .docker /app
+
+RUN pacman -Syu --noconfirm && \
+    pacman -S --noconfirm \
+        vim \
+        git \
+        tmux \
+        curl \
+        nodejs \
+        npm \
+        wget \
+        base-devel \
+        autoconf \
+        automake \
+        cmake \
+        openssl \
+        zlib \
+        bzip2 \
+        readline \
+        sqlite \
+        libffi \
+        xz \
+        ncurses \
+        unzip \
+        file \
+        ca-certificates \
+        gnupg \
+    && pacman -Scc --noconfirm
+
+RUN mkdir /home/agent
+WORKDIR /home/agent
+
+ENV PATH="${HOME}/.local/bin:${PATH}"
+RUN echo $PATH

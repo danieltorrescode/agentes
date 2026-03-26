@@ -4,10 +4,11 @@ This is a micro project to keep me up to day with the language and framework. ma
 The idea is to make use and try out all benefits and tools provided and get an understanding of the capabilities, this is intended to be used by me as a code playground in my learning path and practices.
 
 ```
-mkdir ~/Projects/ollama
-mkdir ~/Projects/ollama/models
-mkdir ~/Projects/ollama/home
-mkdir ~/Projects/ollama/open-webui
+mkdir ~/Projects/.agent
+mkdir ~/Projects/.agent/models
+mkdir ~/Projects/.agent/home
+mkdir ~/Projects/.agent/ollama
+mkdir ~/Projects/.agent/open-webui
 docker network create agents
 docker-compose up
 ```

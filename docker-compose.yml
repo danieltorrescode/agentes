@@ -1,15 +1,30 @@
 services:
-  ollama:
-    container_name: ollama_custom
+  # ollama_cpu:
+  #   container_name: ollama_cpu
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.ollama_cpu
+  #   volumes:
+  #     - ${USER_PATH}/${OLLAMA_PATH}/models:/root/.ollama
+  #     - ${USER_PATH}/${OLLAMA_PATH}/home:/home/ollama
+  #   ports:
+  #     - "11434:11434"
+  #     - "18789:18789"
+  #   stdin_open: true
+  #   tty: true
+  #   networks:
+  #     - agents
+  ollama_amd:
+    container_name: ollama_amd
     build:
       context: .
-      dockerfile: Dockerfile.ollama
+      dockerfile: Dockerfile.ollama_amd
     devices:
       - /dev/kfd:/dev/kfd
       - /dev/dri:/dev/dri
     volumes:
-      - ${USER_PATH}/ollama/models:/root/.ollama
-      - ${USER_PATH}/ollama/home:/home/ollama
+      - ${USER_PATH}/${OLLAMA_PATH}/models:/root/.ollama
+      - ${USER_PATH}/${OLLAMA_PATH}/home:/home/ollama
     ports:
       - "11434:11434"
       - "18789:18789"
@@ -23,7 +38,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
-      - ${USER_PATH}/open-webui:/app/backend/data
+      - ${USER_PATH}/${OLLAMA_PATH}/open-webui:/app/backend/data
     ports:
       - "3000:8080"
     restart: always
